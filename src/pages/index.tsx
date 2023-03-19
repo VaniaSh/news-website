@@ -1,6 +1,7 @@
 import styles from '../styles/Home.module.scss'
-import {createContext, useEffect, useState} from "react";
-import {XMLParser} from 'fast-xml-parser';
+import React, {createContext, useEffect, useState} from "react";
+import {process} from "@/helpers/request";
+import {NewsCard} from "@/components";
 
 interface MyContextType {
     dataType: string;
@@ -14,42 +15,24 @@ export default function Home() {
         },
     });
     const [dataType, setDataType] = useState<string>('application/xml');
-
-    const process = (response: Response) => {
-        switch (response.headers.get("content-type")?.split(';')[1]) {
-            case 'application/json': {
-                return response.json()
-            }
-            case 'application/xml': {
-                return response.text()
-                    .then(data => {
-                        const parser = new XMLParser();
-                        const bookObj = parser.parse(data);
-                        return bookObj.Envelope.Body;
-                    })
-            }
-            default: {
-                throw new Error('could not parse response, please specify response content type');
-            }
-        }
-    }
+    const [news, setNews] = useState([])
 
     useEffect(() => {
         fetch('http://localhost:8080/',
             {headers: {'Accept': dataType,}})
-            .then(process)
-            .then(res => console.log(res, '<< res'))
+            .then(res => process(res))
+            .then(res => setNews(res.news))
             .catch(err => console.log(err))
     }, [])
-
-
+    console.log(news, typeof (news))
     return (
         <MyContext.Provider value={{dataType, setDataType}}>
             <div className={styles.container}>
-                <h1 className={styles.title}><p>
-
-                </p></h1>
-                <h1 className={styles.title}>Home page</h1>
+                {
+                    news?.map((el: any) => (
+                        <NewsCard id={el.ID} title={el.title}/>
+                    ))
+                }
             </div>
         </MyContext.Provider>
 

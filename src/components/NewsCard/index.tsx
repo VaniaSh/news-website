@@ -1,10 +1,14 @@
 import React from 'react';
+import styles from './styles.module.scss'
+import Link from "next/link";
 
-const NewsCard = () => {
+const NewsCard = ({title, id}: { title: string, id: string }) => {
     return (
-        <div>
-
-        </div>
+           <Link href={`/${id}`}>
+               <div className={styles.container}>
+                   {title}
+               </div>
+           </Link>
     );
 };
 
