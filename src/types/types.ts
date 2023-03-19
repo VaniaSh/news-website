@@ -1,13 +1,15 @@
 declare global{
     export type News ={
-        ID: number,
+        id: string,
         title: string,
         body: NBody
 
     }
     interface NBody{
-
+        type: 'plain' | 'bold' | 'italic' | 'subTitle'
+        content: string;
     }
+
 }
 export default undefined;
 

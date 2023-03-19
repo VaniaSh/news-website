@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import Link from "next/link";
+import {Checkbox} from "@/components";
+import {StringContext} from "@/context/changeType";
 
 const Header = () => {
+    const {method} = useContext(StringContext);
     return (
         <div>
             <div>
-               Logo
+                Logo
+                <h2>{method}</h2>
             </div>
             <div>
+                {/*Search/*/}
                 <div>
-                    Create
+                    <Link href={'/create-news'}>Create</Link>
                 </div>
                 <div>
-                    <input type="checkbox"/>
+                    <Checkbox/>
                 </div>
             </div>
         </div>

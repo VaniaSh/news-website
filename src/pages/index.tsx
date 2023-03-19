@@ -1,40 +1,37 @@
 import styles from '../styles/Home.module.scss'
-import React, {createContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {process} from "@/helpers/request";
 import {NewsCard} from "@/components";
-
-interface MyContextType {
-    dataType: string;
-    setDataType: React.Dispatch<React.SetStateAction<string>>;
-}
+import {StringContext} from "@/context/changeType";
 
 export default function Home() {
-    const MyContext = createContext<MyContextType>({
-        dataType: 'application/xml',
-        setDataType: () => {
-        },
-    });
-    const [dataType, setDataType] = useState<string>('application/xml');
-    const [news, setNews] = useState([])
+
+    const [news, setNews] = useState<News[]>([])
+    const {method} = useContext(StringContext);
+
 
     useEffect(() => {
         fetch('http://localhost:8080/',
-            {headers: {'Accept': dataType,}})
+            {headers: {'Accept': method,}})
             .then(res => process(res))
-            .then(res => setNews(res.news))
-            .catch(err => console.log(err))
-    }, [])
-    console.log(news, typeof (news))
-    return (
-        <MyContext.Provider value={{dataType, setDataType}}>
-            <div className={styles.container}>
-                {
-                    news?.map((el: any) => (
-                        <NewsCard id={el.ID} title={el.title}/>
-                    ))
+            .then(res => {
+                if (res.news?.length > 0) {
+                    setNews(res.news)
+                } else {
+                    setNews([res.news as News])
                 }
-            </div>
-        </MyContext.Provider>
+            })
+            .catch(err => console.log(err))
+    }, [method])
+    if (news.length === 0) return <div>Loading</div>
+    return (
+        <div className={styles.container}>
+            {
+                news.map((el, key) => (
+                    <NewsCard key={key} id={el.id} title={el.title}/>
+                ))
+            }
+        </div>
 
     )
 }
