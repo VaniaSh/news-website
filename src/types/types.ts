@@ -2,7 +2,10 @@ declare global{
     export type News ={
         id: string,
         title: string,
-        body: NBody
+        body: NBody[]
+        image_url: string;
+        created: string
+        updated: string
 
     }
     interface NBody{
