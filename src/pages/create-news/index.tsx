@@ -4,6 +4,7 @@ import {Button, TextInput} from "@/components";
 import {StringContext} from "@/context/changeType";
 import {MIME, process} from "@/helpers/request";
 import {XMLBuilder} from "fast-xml-parser";
+import {router} from "next/client";
 
 
 const Create = ({
@@ -47,7 +48,12 @@ const Create = ({
                         return JSON.stringify(bodyOBJ)
                 }
             })()
-        }).then(process).then((res) => console.info(res))
+        }).then(process).then(() => router.push('/'))
+    }
+    const deleteNews = () => {
+        fetch(`http://localhost:8080/${id}`, {
+            method: 'DELETE'
+        }).then(() => router.push('/'))
     }
     useEffect(() => {
         if (methodReq === 'PATCH') {
@@ -77,8 +83,13 @@ const Create = ({
                 <h1 style={{textTransform: 'uppercase'}}>
                     {title || 'news creation form'}
                 </h1>
-                <p>{description || 'Here you can create a new awesome new. And tell about<br/> something what happend in the world! :3'}
+
+                <p style={{marginBottom: 30}}>
+                    {description || 'Here you can create a new awesome new. And tell about<br/> something what happend in the world! :3'}
                 </p>
+                <div>
+                    {title ? (<Button onClick={deleteNews}>Delete</Button>) : ''}
+                </div>
             </div>
             <div className={styles.right}>
                 <div className={styles.row}>
@@ -109,7 +120,7 @@ const Create = ({
                 {body.map(((item, idx,t) =>
                             <div style={{marginBottom: '1rem'}} key={idx}>
                                 <TextInput
-                                    type={'textarea'}
+                                    type={'text'}
                                     value={item.content}
                                     onChange={(e: any) => {
                                         let tmp = [...body]
@@ -126,6 +137,7 @@ const Create = ({
                             </div>
                     )
                 )}
+                <div style={{marginBottom: 20}}></div>
                 <Button variant={"secondary"} onClick={() => setBody((prevState) => [...prevState, {
                     type: 'plain',
                     content: '',

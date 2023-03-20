@@ -16,6 +16,7 @@ const TextInput: FC<TextInputProps> = ({deleteItem, type, variant, value, placeh
     }, []);
 
     return (
+        <div style={{display: 'flex', alignItems: 'start'}}>
         <div className={inputStyle}>
             {type !== 'text' ? (<input
                 className={styles.input}
@@ -36,10 +37,12 @@ const TextInput: FC<TextInputProps> = ({deleteItem, type, variant, value, placeh
             {
                 variant === 'form' ? <BiSearch size={28}/> : ''
             }
+        </div>
             {
                 deleteItem ? <RxCross2 className={styles.deleteIcon} size={28} onClick={deleteItem}/> : ''
             }
         </div>
+
     );
 };
 
