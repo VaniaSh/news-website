@@ -33,7 +33,11 @@
     left: 0;
     transition: 0.3s;
   }
-
+.deleteIcon{
+  position: absolute;
+  top: 13%;
+  right: 1rem;
+}
 }
 .create{
   border: 1px solid #D1D5DB;

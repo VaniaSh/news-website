@@ -1,7 +1,9 @@
 interface TextInputProps{
     value: string
-    name: string
+    type?: string
+    name?: string
     onChange: any
-    placeholder: string
+    placeholder?: string
+    deleteItem?: any
     variant: 'form' | 'create'
 }
