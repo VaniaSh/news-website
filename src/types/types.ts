@@ -6,6 +6,7 @@ declare global{
         image_url: string;
         created: string
         updated: string
+        tags: string[]
 
     }
     interface NBody{

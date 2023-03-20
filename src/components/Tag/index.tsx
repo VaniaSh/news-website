@@ -1,9 +1,9 @@
 import React from 'react';
-
-const Tag = () => {
+import styles from './styles.module.scss'
+const Tag = ({name}:{name:string}) => {
     return (
-        <div>
-
+        <div className={styles.container}>
+            {name}
         </div>
     );
 };

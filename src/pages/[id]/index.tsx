@@ -3,7 +3,7 @@ import {process} from "@/helpers/request";
 import {StringContext} from "@/context/changeType";
 import {useRouter} from "next/router";
 import styles from './styles.module.scss'
-import {Spinner} from "@/components";
+import {Spinner, Tag} from "@/components";
 import Render from "@/components/Render";
 import {AiFillEdit} from "react-icons/ai";
 
@@ -52,10 +52,16 @@ const OneNews = () => {
             <div className={styles.createdAt}>
                 {formatDateTime(news?.created ? news?.created : '2023-03-20T12:29:31.401Z')}
             </div>
-            <hr style={{width:'27rem'}}/>
+            <hr style={{width: '27rem'}}/>
             {news?.body.map(({content, type}) => (
                 <Render type={type} content={content}/>
             ))}
+            <div className={styles.tags}>
+                {news?.tags.map((el) => (
+                    <Tag name={el}></Tag>
+                ))}
+            </div>
+
         </div>
 
     );
