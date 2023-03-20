@@ -1,7 +1,6 @@
 export {Header} from './Header'
 export {Checkbox} from './Checkbox'
 export {Spinner} from './Spinner'
-export {Search} from './Search'
 export {Button} from './Button'
 export {Tag} from './Tag'
 export {TextInput} from './TextInput'

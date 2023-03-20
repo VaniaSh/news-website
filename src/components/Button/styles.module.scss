@@ -1,5 +1,23 @@
 .button{
   width: 10rem;
-  background-color: gray;
-  height: 2rem;
+  background-color: black;
+  height: 3rem;
+  border-radius: 0.7rem;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 15px;
+  color: #FFFFFF;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.primary {
+
+}
+
+.secondary {
+
 }

@@ -1,0 +1,50 @@
+.form {
+  --width-of-input: 200px;
+  --border-height: 1px;
+  --border-before-color: rgb(114, 114, 114);
+  --border-after-color: #5891ff;
+  --input-hovered-color: #4985e01f;
+  position: relative;
+  width: var(--width-of-input);
+  display: flex;
+  margin-top: 0.2rem;
+}
+/* styling of Input */
+.input {
+  color: #000000;
+  font-size: 1.7rem;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 0.1em;
+  padding-block: 0.1em;
+  border: none;
+  border-bottom: var(--border-height) solid var(--border-before-color);
+}
+/* styling of animated border */
+.inputborder {
+  position: absolute;
+  background: black;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transition: 0.3s;
+}
+
+/* here is code of animated border */
+input {
+  &:focus {
+    ~ {
+      .inputborder {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* === if you want to do animated border on typing === */
+/* remove input:focus code and uncomment below code */
+/* input:valid ~ .input-border{
+  width: 100%;
+} */

@@ -1,0 +1,34 @@
+.header {
+  position: relative;
+  width: 100%;
+  height: 90px;
+  background-color: white;
+  border-bottom: solid 0.5px black;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6rem;
+}
+
+.group {
+  display: flex;
+  width: 80%;
+  height: 9rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.news {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 27px;
+  color: #000000;
+  text-decoration: none;
+}
