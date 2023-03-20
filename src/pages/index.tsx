@@ -62,7 +62,7 @@ export default function Home() {
             {
                 loading
                     ? <Spinner/>
-                    : error ? <div style={{fontSize: 30, textAlign: "center", color: "red"}}>Article don't exist</div> : (
+                    : error ? <div style={{fontSize: 30, textAlign: "center", color: "red"}}>Dont have any article</div> : (
                     <div>
                         {
                             news ?

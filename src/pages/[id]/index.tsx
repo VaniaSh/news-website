@@ -53,7 +53,7 @@ const OneNews = () => {
                 ))}
                 <div className={styles.tags}>
                     {news?.tags.map((el) => (
-                        <Tag name={el}></Tag>
+                        <Tag name={el}/>
                     ))}
                 </div>
             </div>
