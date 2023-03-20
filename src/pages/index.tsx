@@ -8,7 +8,8 @@ export default function Home() {
 
     const [news, setNews] = useState<News[]>([])
     const {method} = useContext(StringContext);
-
+    const [search, setSearch] = useState('')
+    console.log(search)
 
     useEffect(() => {
         fetch('http://localhost:8080/',
@@ -27,7 +28,13 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <div className={styles.searchContainer}>
-                <TextInput/>
+                <TextInput
+                placeholder={'Search'}
+                value={search}
+                onChange={(e:any) => setSearch(e.target.value)}
+                name={'search'}
+                variant={'form'}
+                />
             </div>
 
             {

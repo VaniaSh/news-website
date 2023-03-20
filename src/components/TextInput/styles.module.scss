@@ -1,50 +1,53 @@
 .form {
-  --border-height: 1px;
-  --border-before-color: rgb(114, 114, 114);
-  --border-after-color: #5891ff;
-  --input-hovered-color: #4985e01f;
   position: relative;
   width: 100%;
   display: flex;
   margin-top: 0.2rem;
   border-bottom: 0.5px solid gray;
 
-}
-/* styling of Input */
-.input {
-  color: #000000;
-  font-size: 1.7rem;
-  background-color: transparent;
-  width: 100%;
-  box-sizing: border-box;
-  padding-inline: 0.1em;
-  padding-block: 0.1em;
-  border: none;
-}
-/* styling of animated border */
-.inputborder {
-  position: absolute;
-  background: black;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  transition: 0.3s;
-}
+  .input {
+    color: #000000;
+    font-size: 1.7rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.1em;
+    padding-block: 0.1em;
+    border: none;
 
-/* here is code of animated border */
-input {
-  &:focus {
-    ~ {
-      .inputborder {
-        width: 100%;
+    &:focus {
+      ~ {
+        .inputBorder {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .inputBorder {
+    position: absolute;
+    background: black;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+  }
+
+}
+.create{
+  border: 1px solid #D1D5DB;
+  border-radius: .6rem;
+  .input{
+    border: none;
+    padding: .8rem;
+    &:focus {
+      ~ {
+        .inputBorder {
+          display: none;
+        }
       }
     }
   }
 }
 
-/* === if you want to do animated border on typing === */
-/* remove input:focus code and uncomment below code */
-/* input:valid ~ .input-border{
-  width: 100%;
-} */
