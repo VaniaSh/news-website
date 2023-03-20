@@ -14,7 +14,6 @@ export default function Home() {
     const {method} = useContext(StringContext);
     const [search, setSearch] = useState('')
 
-    console.log(query)
     useEffect(() => {
         fetch(`http://localhost:8080/?${new URLSearchParams({
                 ...(search ? {search: search} : {}),
@@ -37,8 +36,7 @@ export default function Home() {
             .catch(err => console.log(err))
     }, [method, search, query])
 
-    console.log(news)
-
+    console.log()
     return (
         <div className={styles.container}>
             <div className={styles.searchContainer}>
@@ -56,7 +54,7 @@ export default function Home() {
             {
                 news ?
                     news.map((el, key) => (
-                        <NewsCard key={key} id={el.id} title={el.title} description={el.description}/>
+                        <NewsCard key={key} id={el.id} title={el.title}/>
                     )) : null
             }
             <div className={styles.containerLinks}>

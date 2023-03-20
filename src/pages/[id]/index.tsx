@@ -26,7 +26,6 @@ const OneNews = () => {
                 .catch(err => console.log(err))
         }
     }, [method, id])
-    console.log(news, '<< news');
 
     function formatDateTime(dateTimeStr: string): string {
         const date = new Date(dateTimeStr);
@@ -51,12 +50,14 @@ const OneNews = () => {
                 {formatDateTime(news?.created ? news?.created : '2023-03-20T12:29:31.401Z')}
             </div>
             <hr style={{width: '27rem'}}/>
-            {news?.body.map(({content, type}) => (
-                <Render type={type} content={content}/>
+            {news?.body.map(({content, type}, key) => (
+                <div key={key}>
+                    <Render type={type} content={content}/>
+                </div>
             ))}
             <div className={styles.tags}>
-                {news?.tags.map((el) => (
-                    <Tag name={el}></Tag>
+                {news?.tags.map((el, key) => (
+                    <div key={key}><Tag name={el}></Tag></div>
                 ))}
             </div>
 

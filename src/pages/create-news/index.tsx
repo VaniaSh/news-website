@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './index.module.scss'
 import {Button, TextInput} from "@/components";
 import {StringContext} from "@/context/changeType";
@@ -6,7 +6,12 @@ import {MIME, process} from "@/helpers/request";
 import {XMLBuilder} from "fast-xml-parser";
 
 
-const Create = () => {
+const Create = ({
+                    title,
+                    description,
+                    methodReq,
+                    id
+                }: { title: string, description: string, methodReq: string, id?: string | string[] | undefined }) => {
     const {method} = useContext(StringContext);
     const [state, setState] = useState<FormFields>({
         title: '',
@@ -24,17 +29,16 @@ const Create = () => {
         setBody(prevItems => prevItems.filter(item => item !== itemToDelete));
 
     }
-
     const createNews = () => {
-        fetch('http://localhost:8080/', {
-            method: 'POST',
+        fetch(`http://localhost:8080/${id}`, {
+            method: methodReq !== undefined ? 'PATCH' : 'POST',
             headers: {
                 "Content-Type": method,
                 "Accept": method,
             },
-            body: (()=>{
+            body: (() => {
                 let bodyOBJ = {...state, body: body}
-                switch (method){
+                switch (method) {
                     case MIME.xml:
                         const builder = new XMLBuilder({});
                         return builder.build({Envelope: {Body: {news: bodyOBJ}}});
@@ -43,9 +47,26 @@ const Create = () => {
                         return JSON.stringify(bodyOBJ)
                 }
             })()
-        } ).then(process).then((res)=>console.info(res))
+        }).then(process).then((res) => console.info(res))
     }
-
+    console.log(method)
+    useEffect(() => {
+        if (methodReq === 'PATCH') {
+            fetch(`http://localhost:8080/${id}`,
+                {
+                    headers: {'Accept': method}
+                })
+                .then(res => process(res))
+                .then(res => {
+                    setState({
+                        ...res.news,
+                        tags: typeof res.news.tags === 'string' ? [res.news.tags] : res.news.tags
+                    })
+                    setBody(res.news.body.length > 0 ? res.news.body : [res.news.body],)
+                })
+                .catch(err => console.log(err))
+        }
+    }, [methodReq])
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
         setState({...state, [name]: value});
@@ -55,9 +76,9 @@ const Create = () => {
         <div className={styles.container}>
             <div className={styles.left}>
                 <h1 style={{textTransform: 'uppercase'}}>
-                    news creation form
+                    {title || 'news creation form'}
                 </h1>
-                <p>Here you can create a new awesome new. And tell about<br/> something what happend in the world! :3
+                <p>{description || 'Here you can create a new awesome new. And tell about<br/> something what happend in the world! :3'}
                 </p>
             </div>
             <div className={styles.right}>
@@ -111,7 +132,8 @@ const Create = () => {
                     content: '',
                 }])}>Add new block
                 </Button>
-                <Button className={styles.addNewsButton} onClick={createNews}>add news</Button>
+                <Button className={styles.addNewsButton}
+                        onClick={createNews}>{methodReq == 'PATCH' ? 'Update' : 'Add'} news</Button>
             </div>
 
 
