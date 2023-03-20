@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styles from './styles.module.scss'
 import Link from "next/link";
 import {Tag} from "@/components";
 
-const NewsCard = ({title, id}: { title: string, id: string }) => {
+interface NewsCardProps {
+    title: string
+    id: string
+}
+const NewsCard:FC<NewsCardProps> = ({title,id }) => {
     return (
            <div className={styles.block}>
                <Link href={`/${id}`}>
                    <div className={styles.container}>
                        <div className={styles.content}>
-                           <div>
+                           <div className={styles.contentT}>
                                <div className={styles.title}>{title}</div>
                                <div className={styles.description}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consequuntur eveniet odio repellendus! Accusamus, iusto nam numquam provident similique ut!
                                </div>
