@@ -7,6 +7,7 @@ declare global{
         created: string
         updated: string
         tags: string[]
+        description: string
 
     }
     interface NBody{
