@@ -16,7 +16,7 @@ const Create = ({
     const [state, setState] = useState<FormFields>({
         title: '',
         image_url: '',
-        tags: ['news', ''],
+        tags: ['news'],
         description: '',
     })
     const [body, setBody] = useState<CustomBlock[]>([
@@ -30,7 +30,7 @@ const Create = ({
 
     }
     const createNews = () => {
-        fetch(`http://localhost:8080/${id}`, {
+        fetch(`http://localhost:8080/${id?id:''}`, {
             method: methodReq !== undefined ? 'PATCH' : 'POST',
             headers: {
                 "Content-Type": method,
@@ -49,7 +49,6 @@ const Create = ({
             })()
         }).then(process).then((res) => console.info(res))
     }
-    console.log(method)
     useEffect(() => {
         if (methodReq === 'PATCH') {
             fetch(`http://localhost:8080/${id}`,

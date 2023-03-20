@@ -7,7 +7,7 @@ interface NewsCardProps {
     title: string
     id: string
     description: string
-    tags: string
+    tags: string[]
     created: string
     image_url: string
 }
