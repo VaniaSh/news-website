@@ -18,7 +18,10 @@ const OneNews = () => {
                 {headers: {'Accept': method}})
                 .then(res => process(res))
                 .then(res => {
-                    setNews(res.news)
+                        setNews({...res.news,
+                            body: res.news.body.length > 0 ? res.news.body : [res.news.body],
+                            tags: typeof res.news.tags === 'string' ? [res.news.tags] : res.news.tags
+                        })
                 })
                 .catch(err => console.log(err))
         }
