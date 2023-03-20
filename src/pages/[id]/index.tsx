@@ -6,6 +6,7 @@ import styles from './styles.module.scss'
 import {Spinner, Tag} from "@/components";
 import Render from "@/components/Render";
 import {AiFillEdit} from "react-icons/ai";
+import {formatDateTime} from '@/helpers/changeDate'
 
 const OneNews = () => {
     const {method} = useContext(StringContext)
@@ -27,12 +28,6 @@ const OneNews = () => {
         }
     }, [method, id])
 
-    function formatDateTime(dateTimeStr: string): string {
-        const date = new Date(dateTimeStr);
-        const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
@@ -42,23 +37,25 @@ const OneNews = () => {
                     <Spinner/>
                 }
             </div>
-            <div className={styles.titleBlock}>
-                <h1>{news?.title}</h1>
-                <div className={styles.editIcon}><AiFillEdit onClick={() => push(`/edit/${news?.id}`) } size={34}/></div>
-            </div>
-            <div className={styles.createdAt}>
-                {formatDateTime(news?.created ? news?.created : '2023-03-20T12:29:31.401Z')}
-            </div>
-            <hr style={{width: '27rem'}}/>
-            {news?.body.map(({content, type}, key) => (
-                <div key={key}>
-                    <Render type={type} content={content}/>
+            <div>
+                <div className={styles.titleBlock}>
+                    <h1>{news?.title}</h1>
+                    <div className={styles.editIcon}><AiFillEdit onClick={() => push(`/edit/${news?.id}`) } size={34}/></div>
                 </div>
-            ))}
-            <div className={styles.tags}>
-                {news?.tags.map((el, key) => (
-                    <div key={key}><Tag name={el}></Tag></div>
+                <div className={styles.createdAt}>
+                    {formatDateTime(news?.created ? news?.created : '2023-03-20T12:29:31.401Z')}
+                </div>
+                <hr style={{width: '27rem'}}/>
+            </div>
+            <div>
+                {news?.body.map(({content, type}) => (
+                    <Render type={type} content={content}/>
                 ))}
+                <div className={styles.tags}>
+                    {news?.tags.map((el) => (
+                        <Tag name={el}></Tag>
+                    ))}
+                </div>
             </div>
 
         </div>

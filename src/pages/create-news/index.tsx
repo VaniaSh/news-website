@@ -91,7 +91,7 @@ const Create = ({
 
                     />
 
-                    <TextInput placeholder={'image url'}
+                    <TextInput placeholder={'Image url'}
                                name={'image_url'}
                                value={state.image_url}
                                onChange={handleInputChange}
