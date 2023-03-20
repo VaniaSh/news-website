@@ -13,9 +13,13 @@ export default function Home() {
     const [news, setNews] = useState<News[]>([])
     const {method} = useContext(StringContext);
     const [search, setSearch] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     console.log(query)
     useEffect(() => {
+        setError('')
+        setLoading(true)
         fetch(`http://localhost:8080/?${new URLSearchParams({
                 ...(search ? {search: search} : {}),
                 ...(query.page ? {skip: `${(parseInt(query.page as string) - 1) * 10}`} : {}),
@@ -26,15 +30,21 @@ export default function Home() {
             .then(res => {
                 if (!res.news) {
                     setNews([])
-                    throw new Error()
+                    throw new Error('Something went wrong...(')
                 }
                 if (res.news?.length > 0) {
                     setNews(res.news)
+                    setLoading(false)
                 } else {
                     setNews([res.news as News])
+                    setLoading(false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+                setError(err)
+            })
     }, [method, search, query])
 
 
@@ -50,30 +60,39 @@ export default function Home() {
                 />
             </div>
             {
-                news.length === 0 ? <div><Spinner/></div> : null
-            }
-            {
-                news ?
-                    news.map((el, key) => (
-                        <NewsCard key={key} id={el.id} title={el.title} description={el.description} created={el.created} tags={el.tags} image_url={el.image_url}/>
-                    )) : null
-            }
-            <div className={styles.containerLinks}>
-                <Link className={styles.link} href={`?${new URLSearchParams({
-                    page: (() => {
-                        let page = parseInt(query.page as string)
-                        if (page > 1) {
-                            page -= 1
-                        } else {
-                            page = 1
+                loading
+                    ? <Spinner/>
+                    : error ? <div style={{fontSize: 30, textAlign: "center", color: "red"}}>Article don't exist</div> : (
+                    <div>
+                        {
+                            news ?
+                                news.map((el, key) => (
+                                    <NewsCard key={key} id={el.id} title={el.title} description={el.description} created={el.created} tags={el.tags} image_url={el.image_url}/>
+                                )) : null
                         }
-                        return `${page}`
-                    })()
-                })}`}><AiOutlineArrowLeft/></Link>
-                <Link className={styles.link} href={`?${new URLSearchParams({
-                    page: `${query.page ? parseInt(query.page as string) + 1 : 2}`
-                })}`}><AiOutlineArrowRight/></Link>
-            </div>
+                        <div className={styles.containerLinks}>
+                            <Link className={styles.link} href={`?${new URLSearchParams({
+                                page: (() => {
+                                    let page = parseInt(query.page as string)
+                                    if (page > 1) {
+                                        page -= 1
+                                    } else {
+                                        page = 1
+                                    }
+                                    return `${page}`
+                                })()
+                            })}`}><AiOutlineArrowLeft/></Link>
+                            <Link className={styles.link} href={`?${new URLSearchParams({
+                                page: `${query.page ? parseInt(query.page as string) + 1 : 2}`
+                            })}`}><AiOutlineArrowRight/></Link>
+                        </div>
+                    </div>
+                )
+            }
+            {/*{*/}
+            {/*    news.length === 0 ? <div><Spinner/></div> : null*/}
+            {/*}*/}
+
         </div>
 
     )
