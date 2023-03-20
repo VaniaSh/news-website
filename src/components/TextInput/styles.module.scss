@@ -1,13 +1,14 @@
 .form {
-  --width-of-input: 200px;
   --border-height: 1px;
   --border-before-color: rgb(114, 114, 114);
   --border-after-color: #5891ff;
   --input-hovered-color: #4985e01f;
   position: relative;
-  width: var(--width-of-input);
+  width: 100%;
   display: flex;
   margin-top: 0.2rem;
+  border-bottom: 0.5px solid gray;
+
 }
 /* styling of Input */
 .input {
@@ -19,7 +20,6 @@
   padding-inline: 0.1em;
   padding-block: 0.1em;
   border: none;
-  border-bottom: var(--border-height) solid var(--border-before-color);
 }
 /* styling of animated border */
 .inputborder {
