@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import React, {useContext, useEffect, useState} from "react";
 import {process} from "@/helpers/request";
-import {NewsCard, TextInput} from "@/components";
+import {NewsCard, Spinner, TextInput} from "@/components";
 import {StringContext} from "@/context/changeType";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -51,12 +51,12 @@ export default function Home() {
                 />
             </div>
             {
-                news.length === 0 ? <div>Loading</div> : null
+                news.length === 0 ? <div><Spinner/></div> : null
             }
             {
                 news ?
                     news.map((el, key) => (
-                        <NewsCard key={key} id={el.id} title={el.title} description={el.description}/>
+                        <NewsCard key={key} id={el.id} title={el.title} description={el.description} created={el.created} tags={el.tags} image_url={el.image_url}/>
                     )) : null
             }
             <div className={styles.containerLinks}>

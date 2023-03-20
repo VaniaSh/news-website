@@ -70,7 +70,7 @@ const Create = () => {
 
                     />
 
-                    <TextInput placeholder={'image url'}
+                    <TextInput placeholder={'Image url'}
                                name={'image_url'}
                                value={state.image_url}
                                onChange={handleInputChange}
@@ -111,7 +111,7 @@ const Create = () => {
                     content: '',
                 }])}>Add new block
                 </Button>
-                <Button className={styles.addNewsButton} onClick={createNews}>add news</Button>
+                <Button className={styles.addNewsButton} onClick={createNews}>Add news</Button>
             </div>
 
 
