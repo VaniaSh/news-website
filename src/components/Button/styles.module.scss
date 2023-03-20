@@ -9,15 +9,21 @@
   font-size: 1.5rem;
   line-height: 15px;
   color: #FFFFFF;
+
+}
+
+.primary {
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }
 }
 
-.primary {
-
-}
-
 .secondary {
-
+  width: auto;
+  background-color: #FFFFFF;
+  color: #444444;
+  font-weight: 400;
+  &:hover {
+    color: black;
+  }
 }
