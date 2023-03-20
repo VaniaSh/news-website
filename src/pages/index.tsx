@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import React, {useContext, useEffect, useState} from "react";
 import {process} from "@/helpers/request";
-import {NewsCard} from "@/components";
+import {NewsCard, TextInput} from "@/components";
 import {StringContext} from "@/context/changeType";
 
 export default function Home() {
@@ -26,6 +26,10 @@ export default function Home() {
     if (news.length === 0) return <div>Loading</div>
     return (
         <div className={styles.container}>
+            <div className={styles.searchContainer}>
+                <TextInput/>
+            </div>
+
             {
                 news.map((el, key) => (
                     <NewsCard key={key} id={el.id} title={el.title}/>

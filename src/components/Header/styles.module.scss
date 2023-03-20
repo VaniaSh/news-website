@@ -12,14 +12,14 @@
 .group {
   display: flex;
   width: 80%;
-  height: 9rem;
+  height: 100%;
   justify-content: space-between;
   align-items: center;
 }
 
 .buttons {
   display: flex;
-  width: 30%;
+  gap: 2rem;
   justify-content: space-between;
 }
 
