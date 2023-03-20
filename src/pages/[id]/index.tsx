@@ -10,7 +10,7 @@ import {AiFillEdit} from "react-icons/ai";
 const OneNews = () => {
     const {method} = useContext(StringContext)
     const [news, setNews] = useState<News>()
-    const {query: {id}} = useRouter()
+    const {query: {id}, push} = useRouter()
 
     useEffect(() => {
         if (id) {
@@ -34,11 +34,6 @@ const OneNews = () => {
         return date.toLocaleDateString('en-US', options);
     }
 
-    const dateTimeStr = '2023-03-20T12:29:31.401Z';
-    const formattedDateTime: string = formatDateTime(dateTimeStr);
-    console.log(formattedDateTime);
-
-
     return (
         <div className={styles.container}>
             <div className={styles.imageContainer}>
@@ -50,7 +45,7 @@ const OneNews = () => {
             </div>
             <div className={styles.titleBlock}>
                 <h1>{news?.title}</h1>
-                <div className={styles.editIcon}><AiFillEdit size={34}/></div>
+                <div className={styles.editIcon}><AiFillEdit onClick={() => push(`/edit/${news?.id}`) } size={34}/></div>
             </div>
             <div className={styles.createdAt}>
                 {formatDateTime(news?.created ? news?.created : '2023-03-20T12:29:31.401Z')}
